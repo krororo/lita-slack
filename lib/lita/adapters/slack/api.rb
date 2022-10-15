@@ -69,15 +69,14 @@ module Lita
           call_api("channels.setTopic", channel: channel, topic: topic)
         end
 
-        def rtm_start
-          response_data = call_api("rtm.start")
+        def rtm_connect
+          response_data = call_api("rtm.connect")
 
           TeamData.new(
-            SlackIM.from_data_array(response_data["ims"]),
+            [],
             SlackUser.from_data(response_data["self"]),
-            SlackUser.from_data_array(response_data["users"]),
-            SlackChannel.from_data_array(response_data["channels"]) +
-              SlackChannel.from_data_array(response_data["groups"]),
+            nil,
+            nil,
             response_data["url"],
           )
         end
